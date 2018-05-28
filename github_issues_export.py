@@ -14,6 +14,7 @@ TITLE = 'title'
 STATE = 'state'
 ASSIGNEES = 'assignees'
 MILESTONE = 'milestone'
+LABELS = 'labels'
 CREATED_AT = 'created_at'
 UPDATED_AT = 'updated_at'
 URL = 'html_url'
@@ -31,6 +32,7 @@ class Issues:
             STATE,
             ASSIGNEES,
             MILESTONE,
+            LABELS,
             CREATED_AT,
             UPDATED_AT,
             URL,
@@ -64,9 +66,16 @@ class Issues:
 
     @staticmethod
     def parse_value(field_name, value):
+        if not value:
+            return ''
         if field_name == ASSIGNEES:
             assignees = [assignee.get('login') for assignee in value]
-            return ','.join(assignees)
+            return ', '.join(assignees)
+        elif field_name == MILESTONE:
+            return value.get('title', '')
+        elif field_name == LABELS:
+            label_names = [label.get('name') for label in value]
+            return ', '.join(label_names)
         else:
             return value
 
