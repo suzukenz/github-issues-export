@@ -97,7 +97,6 @@ def request_issues_api(owner, repo, options={}):
     }
     params = {k: v for k, v in filters.items() if v}
     params['per_page'] = REQ_PER_PAGE
-    # print(params)
 
     res_issues = []
     page = 1
@@ -138,7 +137,7 @@ def setup_arg_parser():
         help='get only count (default: false)'
     )
     parser.add_argument(
-        '--token', 
+        '--token',
         help='github auth token (for authentication required)'
     )
     parser.add_argument(
